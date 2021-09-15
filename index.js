@@ -54,17 +54,16 @@ app.post('/recette', (req, res) => {
 app.get('/recette/:id', function (request, response) {
     // si id null ou n'est pas un nombre positif non nul -> 400+ petit message 
     //{"message":"l'identifiant est incorrect ou manquant"}
-  // sinon
-  // execute la query
-    con.query("SELECT * from recette where id=" + request.params.id + ";", 
-    function (err, result) 
-      {
-        // si (err) --> 503 + petit message 
-        //{"message":"un probleme est survenu, tranquile"}
-      // sinon   response.status(200).json(result);
-        if (err) throw err;
-        console.log(result);
-        console.log(request);
-        response.status(200).json(result);
-      })
-  });
+    // sinon
+    // execute la query
+    con.query("SELECT * from recette where id=" + request.params.id + ";",
+        function (err, result) {
+            // si (err) --> 503 + petit message 
+            //{"message":"un probleme est survenu, tranquile"}
+            // sinon   response.status(200).json(result);
+            if (err) throw err;
+            console.log(result);
+            console.log(request);
+            response.status(200).json(result);
+        })
+});
