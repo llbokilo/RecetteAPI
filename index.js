@@ -51,14 +51,20 @@ app.post('/recette', (req, res) => {
         res.status(200).json(result);
     });
 });
-app.delete('/recette/:id', (req, res) => {
-    const id = parseInt(req.params.id)
-    query = "DELETE FROM RECETTE WHERE id=" + id + ";";
-    console.log(query);
-    con.query(query, function (err, result) {
-        console.log(query);
+app.get('/recette/:id', function (request, response) {
+    // si id null ou n'est pas un nombre positif non nul -> 400+ petit message 
+    //{"message":"l'identifiant est incorrect ou manquant"}
+  // sinon
+  // execute la query
+    con.query("SELECT * from recette where id=" + request.params.id + ";", 
+    function (err, result) 
+      {
+        // si (err) --> 503 + petit message 
+        //{"message":"un probleme est survenu, tranquile"}
+      // sinon   response.status(200).json(result);
         if (err) throw err;
         console.log(result);
-        res.status(200).json(result);
-    });
-})
+        console.log(request);
+        response.status(200).json(result);
+      })
+  });
